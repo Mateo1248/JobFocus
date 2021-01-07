@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/index.css">
+<script src="/static/js/index.js"></script>
+{% endblock %}
+
+{% block header_nav %}
+<li id="home" class="nav-item active">
+    <a class="nav-link" href="{{ url_for('index.index') }}">Home<span class="sr-only">(current)</span></a>
+</li>
+{% if user.is_employee() %}
+    <li id="browser" class="nav-item">
+        <a class="nav-link" href="{{ url_for('index.browser') }}">Browser<span class="sr-only">(current)</span></a>
+    </li>
+    <li id="attributes" class="addatt nav-item">
+        <a class="nav-link" href="{{ url_for('index.addatt') }}">Your attributes<span class="sr-only">(current)</span></a>
+    </li>
+{% else %}
+    <li id="stats" class="nav-item">
+        <a class="nav-link" href="{{ url_for('stats.stats') }}">Statistics<span class="sr-only">(current)</span></a>
+    </li>
+    <li id="ads" class="addatt nav-item">
+        <a class="nav-link" href="{{ url_for('index.addatt') }}">Your ads<span class="sr-only">(current)</span></a>
+    </li>
+{% endif %}
+    <li id="logout" class="nav-item">
+        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout<span class="sr-only">(current)</span></a>
+    </li>
+{% endblock %}
+
+{% block content %}
+<div id="indexBg">
+    <div id="indexFg" class="container-fluid">
+        <div  class="row idFGrow">
+            <div class="col leftBox">
+                <div class="row p-3 h-100">
+                    <h5 class="font-weight-light w-100 text-center">Account details</h5>
+
+                    <form id="userDetails" class="w-100 bb text-center headerFhei" action="{{ url_for('user.manage_user') }}" method="post" >
+                        {% for k, v  in user.safe() %}
+                            <div class="form-group form-inline text-nowrap">
+                                <label class="w-100 lLabel">
+                                    {{ k.capitalize() }}:
+                                    <input class="customInput inputTrans ml-2" name="{{ '_'.join(k.split()) }}" type="text" placeholder="{{ k.capitalize() }}" value="{{ v }}">
+                                </label>
+                            </div>
+                        {% endfor %}
+                        <button id="updateUser" class="customButton m-1 ml-4 mr-4" onclick="deleteB=false;">UPDATE</button>
+                        <button id="deleteUser" class="customButton customDanger m-1 ml-4 mr-4" onclick="deleteB=true;">DELETE</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col rightBox">
+                {% if user.is_employee() %}
+                    <div class="row p-3 empCT">
+                        <h5 class="font-weight-light w-100 text-center">Add new interest</h5>
+
+                        <form id="empInter" class="w-100 bb text-center" action="{{ url_for('user.interest') }}" method="post">
+                            <input class="customInput" name="interest" type="text" placeholder="Interest keyword">
+                            <button class="customButton m-1">ADD</button>
+                        </form>
+
+                    </div>
+                    <div class="row p-3 empCB">
+                        <h5 class="font-weight-light w-100 text-center">Describe your earlier works</h5>
+
+                        <form id="empExp" class="w-100  bb text-center headerFhei" action="{{ url_for('user.experience') }}" method="post">
+                            <input class="customInput" name="position" type="text" placeholder="Position">
+                            <input class="customInput" name="city" type="text" placeholder="City">
+                            <textarea class="customInput" name="description" form="empExp" placeholder="Description" rows="5"></textarea>
+                            <button class="customButton">ADD</button>
+                        </form>
+
+                    </div>
+                {% else %}
+                    <div class="row p-3 h-100">
+                        <h5 class="font-weight-light w-100 text-center">Add new job offer</h5>
+
+                        <form id="jobOffer" class="w-100  bb text-center headerFhei" action="{{ url_for('user.advert') }}" method="post">
+                            <input class="customInput" name="position" type="text" placeholder="Position">
+                            <input class="customInput" name="company" type="text" placeholder="Company">
+                            <input class="customInput" name="city" type="text" placeholder="City">
+
+                            <label class="selectCust">Education required:
+                                <select class="customInput w-auto" name="edu_r" id="edu_r">
+                                    <option value="0">not required</option>
+                                    <option value="1">high school diploma</option>
+                                    <option value="2">associate degree</option>
+                                    <option value="3">bachelor's degree</option>
+                                    <option value="4">master's degree</option>
+                                </select>
+                            </label>
+
+                            <label class="selectCust">Employment type:
+                                <select class="customInput w-auto" name="emp_t" id="emp_t">
+                                    <option value="0">casual</option>
+                                    <option value="1">seasonal</option>
+                                    <option value="2">intern</option>
+                                    <option value="3">part-time</option>
+                                    <option value="4">full-time</option>
+                                </select>
+                            </label>
+
+                            <textarea class="customInput" name="description" form="jobOffer" placeholder="Description" rows="6"></textarea>
+                            <button class="customButton">ADD</button>
+                        </form>
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

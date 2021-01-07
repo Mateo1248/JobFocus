@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="/static/css/stats.css">
+<script src="/static/js/stats.js"></script>
+{% endblock %}
+
+{% block header_nav %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div id="indexBg">
+    <div id="indexFg" class="container-fluid">
+        {% for offInf in stats %}
+            <div class="bb mb-3">
+                <h5 class="text-center w-100">Offer ID: {{ offInf.id }}</h5>
+                <span class="w-100 font-weight-bold">MARKS:</span> <br>
+                all: <span  class="font-weight-bold">{{ offInf.allR }}</span> <br>
+                lats 30 days: <span  class="font-weight-bold">{{ offInf.d30R }}</span> <br>
+                <span class="w-100 font-weight-bold">VIEWERS ( {{ offInf.rQ }} ):</span> <br>
+                <div>
+                    {% if offInf.empInfR %}
+                        <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Experience</th>
+                                <th scope="col">Mark</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for i, empI in enumerate(offInf.empInfR) %}
+                                <tr>
+                                    <th scope="row">{{ i }}</th>
+                                    <td class="text-break">{{ empI.pos }}</td>
+                                    <td>{{ empI.rat }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

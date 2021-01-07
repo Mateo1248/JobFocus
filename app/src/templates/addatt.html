@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="/static/css/addatt.css">
+<link rel="stylesheet" href="/static/css/browser.css">
+<script src="/static/js/addatt.js"></script>
+{% endblock %}
+
+{% block header_nav %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div id="indexBg">
+    <div id="indexFg" class="container-fluid">
+        {% if user.is_employee() %}
+            <div class="row w-75 m-auto attTit">
+                <h5 class="font-weight-bold m-auto align-items-center d-flex text-center">Your interest</h5>
+            </div>
+            <div class="container-fluid p-4">
+                {% if interest %}
+                    {{ interest|safe }}
+                {% else %}
+                    <div class="row w-100 m-0">
+                        <span class="m-auto text-uppercase font-weight-bold attSMsg">Nothing to  display</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="row w-75 m-auto attTit">
+                <h5 class="font-weight-bold m-auto align-items-center d-flex text-center ">Your experience</h5>
+            </div>
+            <div class="container-fluid p-4">
+                {% if experience %}
+                    {{ experience|safe }}
+                {% else %}
+                    <div class="row w-100 m-0">
+                        <span class="m-auto text-uppercase font-weight-bold attSMsg">Nothing to  display</span>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="row w-75 m-auto attTit">
+                <h5 class="font-weight-bold m-auto align-items-center d-flex text-center">Posted jobs</h5>
+            </div>
+            <div class="container-fluid p-4">
+                {% if joboffers %}
+                    {{ joboffers|safe }}
+                {% else %}
+                    <div class="row w-100 m-0">
+                        <span class="m-auto text-uppercase font-weight-bold attSMsg">Nothing to  display</span>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

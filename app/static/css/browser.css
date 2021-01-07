@@ -1,0 +1,151 @@
+#searchInput {
+    background-color: #DBDADA;
+	border-radius: 5px;
+	border: none;
+	padding: 1vh 0.1vw;
+    margin: 1.5vh 0;
+    box-shadow: 0 0 10px gray;
+    width: calc(100px + 20vw);
+    padding-right: 40px;
+}
+
+#searchBtn {
+    margin-left: -35px;
+    z-index: 5;
+    border-radius: 5px;
+}
+
+#startMsg {
+    color: gray;
+    opacity: 0.15;
+    font-size: calc(10px + 2vw);
+    height: 100%;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+.jobEnity {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 10px;
+    background-image: linear-gradient(rgba(191, 126, 255, 1), rgb(233, 233, 253), rgb(199, 200, 247));
+    font-size: calc(10px + 0.7vw);
+    transform: scale(1);
+}
+
+
+.matchJob {
+    border-radius: 17px;
+    padding: 0;
+    margin: 0;
+    padding-top: 3px;
+    text-align: center;
+    border: 2px solid #50A;
+    width: 55px;
+    height: 30px;
+    font-weight: 600;
+    font-size: 15px !important;
+}
+
+.jobh3 {
+    font-size: calc(12px + 1.2vw);
+}
+
+.jobEnity h5 {
+    margin:auto;
+    font-size: calc(11px + 0.8vw);
+}
+
+.jobEnity:hover {
+    box-shadow: 0 0 13px gray;
+    transform: scale(1.004);
+}
+
+.jobEnity:hover .expandEnityIco {
+    width: 49px;
+    height: 33px;   
+}
+
+.expandEnity {
+    height: 40px;
+}
+
+
+.expandEnityIco {
+    width: 45px;
+    height: 30px;
+    margin: auto;
+    border-radius: 15px;
+}
+
+.jobContent {
+    margin-top: 20px;
+}
+
+.desc {
+    word-break: break-word;
+}
+
+.mapEnity {
+    height: calc(200px + 20vh);
+    border: 2px  solid rgba(0, 0, 0, 0.5);
+}
+
+.enConRight {
+    word-break: break-all;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.rateJob {
+    width: 114px;
+    height: 59px;
+    margin: auto;
+    padding: 0;
+}
+
+.enConLeft {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.ldl {
+    border-radius: 2px;
+    margin: 2px;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    transform: scale(1);
+}
+
+.ldl:hover {
+    box-shadow: 0 0 10px white;
+    transform: scale(1.1);
+}
+
+.likeimg {
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+}
+
+.ldl-left {
+    background: radial-gradient(circle, rgb(215, 247, 224) 0%, rgb(128, 165, 138) 100%);
+}
+
+.ldl-right {
+    background: radial-gradient(circle, rgb(255, 185, 198) 0%, rgb(186, 151, 151) 100%);
+}
+
+.ratactive {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px white;
+    border: 2px  solid rgba(0, 0, 0, 0.5);
+}
+
+@media(max-width: 800px) {
+    .matchJob {
+        margin: auto;
+    }
+}
+

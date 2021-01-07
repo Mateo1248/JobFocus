@@ -1,0 +1,52 @@
+#indexBg {
+    background-color: rgba(85,0,170,0.3); 
+    border-radius: 10px;
+    margin: 50px 5vw;
+    width: 100%;
+    padding: 10px;
+}
+
+#indexFg {
+    background-color:whitesmoke; 
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#indexFg h5 {
+    height: 50px;
+    margin: 0;
+}
+
+
+.leftBox {
+    border-right: 2px solid rgba(85, 0, 170, 0.2);
+}
+
+.idFGrow {
+    height: 100%;
+    object-fit:contain;
+}
+
+.headerFhei {
+    height: calc(100% - 50px);
+}
+
+.selectCust {
+    width: 100%;
+    text-align: left;
+}
+
+@media(max-width: 1000px) {
+    .selectCust {
+        text-align: center;
+    }
+    
+}
+
+@media(max-width: 550px) {
+    #indexBg {
+        margin: calc(40px + 3vh) 0;
+    }
+}

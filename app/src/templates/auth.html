@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/auth.css">
+<script src="/static/js/auth.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container" id="container">
+
+        <div id="employeeAddAuth" style="display: none;">
+
+            <form id="signUpEmployee" action="{{ url_for('auth.register') }}" method="post">
+                <h2>Complete data</h2>
+                <img id="authBack" class="btn-goback small-button-custom" src="/static/media/goback1.png">
+
+                <input type="text" name="firstname" placeholder="First Name"/>
+                <input type="text" name="surname" placeholder="Surname"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col m-auto">
+                            <div class="checkbox-container">
+                                <label class="m-auto">
+                                    <span class="font-weight-bold">Sex:</span>
+                                    <label ><input class="radio" name="sex" value="male" type="radio"  checked><span>Male</span></label>
+                                    <label ><input class="radio" name="sex" value="female" type="radio"><span>Female</span></label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label><span class="font-weight-bold">Birth year: </span><input id="yearPicker" type="number" value=2020 step=1 name="birth_year"></label>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="city" placeholder="City"/>
+
+                <button id="signUpEmployeeSubmit">SIGN UP</button>
+            </form>
+
+
+        </div>
+
+        <div id="sign-up" class="form-container sign-up-container basicAuth">
+
+
+            <form id="signUpForm" action="{{ url_for('auth.register') }}" method="post" >
+                <h1>Create Account</h1>
+                <h5>Who are you?</h5>
+                <div class="checkbox-container">
+                    <label ><input id="employeeRadio" class="radio" name="user" value="employee" type="radio"  checked><span>Employee</span></label>
+                    <label ><input id="employeerRadio" class="radio" name="user" value="employeer" type="radio"><span>Employeer</span></label>
+                </div>
+
+                <input type="email" name="email" placeholder="Email"/>
+                <input type="password" name="password" placeholder="Password"/>
+                <button id="signUpSubmit">CONTINUE...</button>
+            </form>
+
+
+        </div>
+        <div id="sign-in" class="form-container sign-in-container basicAuth">
+
+
+            <form id="signInForm" action="{{ url_for('auth.login') }}" method="post">
+                <h1>Sign in</h1>
+
+                <input type="email" name="email" placeholder="Email"/>
+                <input type="password" name="password" placeholder="Password"/>
+                <label ><input class="radio" name="remember_me" type="checkbox"><span>Remember me</span></label>
+                <button>Sign In</button>
+            </form>
+
+
+        </div>
+        <div class="overlay-container basicAuth">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+<div id="{{ attCls }}_{{ id }}" class="row mt-2  mb-2 addattEnity">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container-fluid m-1">
+                <div class="row">
+                    <div class="m-auto">
+                        {% if experience %}
+                            <h3 class="jobh3 bbAtt"> {{ experience.position }}</h3>
+                        {% elif interest %}
+                            <h3 class="jobh3 bbAtt"> {{ interest.interest }}</h3>
+                        {% elif joboffer %}
+                            <h3 class="jobh3 bbAtt"> {{ joboffer.position }}</h3>
+                            <h5 class="text-center">ID: {{ id }}</h5>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="addattContent{{ attCls }}_{{ id }}" class="row addattContent" style="display: none;">
+            {% if experience %}
+                <form id="form{{ attCls }}_{{ id }}" class="text-center w-100" action="/user/employee/experience" method="POST">
+            {% elif interest %}
+                <form id="form{{ attCls }}_{{ id }}" class="text-center w-100" action="/user/employee/interest" method="POST">
+            {% elif joboffer %}
+                <form id="form{{ attCls }}_{{ id }}" class="text-center w-100" action="/user/employeer/advert" method="POST">
+            {% endif %}
+                <input name="attId" value="{{ id }}" style="display: none;">
+                {% if experience %}
+                <label class="w-100 lLabel">
+                    Position:
+                    <input class="customInput bbW" name="position" value="{{ experience.position }}">
+                </label>
+                <label class="w-100 lLabel">
+                    City:
+                    <input class="customInput bbW" name="city" value="{{ experience.city }}">
+                </label>
+                <label class="w-100 lLabel">
+                    Description:
+                    <textarea class="customInput bbW" name="description" rows="4">{{ experience.description }}</textarea>
+                </label>
+                {% elif interest %}
+                <label class="w-100 lLabel">
+                    Interest keyword:
+                    <input class="customInput bbW" name="interest" value="{{ interest.interest }}">
+                </label>
+                {% elif joboffer %}
+                <label class="w-100 lLabel">
+                    Position:
+                    <input class="customInput bbW" name="position" value="{{ joboffer.position }}">
+                </label>
+                <label class="w-100 lLabel">
+                    Company:
+                    <input class="customInput bbW" name="company" value="{{ joboffer.company }}">
+                </label>
+                <label class="w-100 lLabel">
+                    City:
+                    <input class="customInput bbW" name="city" value="{{ joboffer.city }}">
+                </label>
+                <label class="selectCust">Education required:
+                    <select class="customInput w-auto bbW" name="edu_r" id="edu_r">
+                        {% for opt in [
+                            "<option value=\"0\" selected>not required</option>",
+                            "<option value=\"1\" selected>high school diploma</option>",
+                            "<option value=\"2\" selected>associate degree</option>",
+                            "<option value=\"3\" selected>bachelor's degree</option>",
+                            "<option value=\"4\" selected>master's degree</option>"
+                            ] %}
+                            {% if opt.split("\"")[1]|int == joboffer.education_required %}
+                                {{ opt|safe }}
+                            {% else %}
+                                {{ "".join(opt.split("selected"))|safe }}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label class="selectCust">Employment type:
+                    <select class="customInput w-auto bbW" name="emp_t" id="emp_t">
+                        {% for opt in [
+                            "<option value=\"0\" selected>casual</option>",
+                            "<option value=\"1\" selected>seasonal</option>",
+                            "<option value=\"2\" selected>intern</option>",
+                            "<option value=\"3\" selected>part-time</option>",
+                            "<option value=\"4\" selected>full-time</option>"
+                            ] %}
+                            {% if opt.split("\"")[1]|int == joboffer.employment_type %}
+                                {{ opt|safe }}
+                            {% else %}
+                                {{ "".join(opt.split("selected"))|safe }}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+                <label class="w-100 lLabel">
+                    Description:
+                    <textarea class="customInput bbW" name="description" rows="4">{{ joboffer.description }}</textarea>
+                </label>
+                {% endif %}
+                <button type="submit" value="UPDATE" name="att_form_btn" class="customButton m-1 ml-2 mr-2">UPDATE</button>
+                <button type="submit" value="DELETE" name="att_form_btn" class="customButton customDanger m-1 ml-2 mr-2">DELETE</button>
+            </form>
+        </div>
+
+        <div class="row mt-2 expandEnity">
+            <img id="expandEnityIco{{ attCls }}_{{ id }}" class="expandEnityIco" src="/static/media/ddownarrow.png">
+        </div>
+    </div>
+</div>
+<script>
+    var attCls = "{{ attCls }}";
+    var enityId = parseInt("{{ id }}");
+
+    $('#{{ attCls }}_{{ id }}').click(function(e) {
+        if ($('#addattContent{{ attCls }}_{{ id }}').css('display') == 'none' ){
+            $('.addattContent').slideUp();
+            $('#addattContent{{ attCls }}_{{ id }}').slideDown();
+            $('.expandEnityIco').css({
+                transform: "initial"
+            });
+            $('#expandEnityIco{{ attCls }}_{{ id }}').css({
+                transform: "rotate(180deg)"
+            });
+        }
+    });
+    $('#expandEnityIco{{ attCls }}_{{ id }}').click(function(e) {
+        $('#addattContent{{ attCls }}_{{ id }}').slideUp();
+        $('#expandEnityIco{{ attCls }}_{{ id }}').css({
+            transform: "initial"
+        });
+    })
+</script>

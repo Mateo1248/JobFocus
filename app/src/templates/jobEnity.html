@@ -1,0 +1,131 @@
+<div id="{{ job.id }}" class="row mt-2  mb-2 jobEnity">
+    <div class="container-fluid">
+        <div id="jobHeader{{ job.id }}" class="row jobHeader">
+            <div class="container-fluid m-1">
+                <div class="row mb-1">
+                    <div class="m-auto">
+                        <h3 class="jobh3"> {{ job.pos }}</h3>
+                    </div>
+                    <div id="matchJob{{ job.id }}" class="matchJob mt-1"> {{ "%.0f" % (job.f_factor*100) }} %</div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <h5>Company:</h5>
+                        {{ job.comp }}
+                    </div>
+                    <div class="col">
+                        <h5>City:</h5>
+                        {{ job.city }}
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div id="jobContent{{ job.id }}" class="row jobContent" style="display: none;">
+
+            <div class="row w-100 m-3 rateJobCont">
+                <div class="container">
+                    <div class="row rateJob">
+                        <div class="col ldl ldl-left">
+                            <img id="like_{{ job.id }}" class="likeimg" src="/static/media/like.png">
+                        </div>
+                        <div class="col ldl ldl-right">
+                            <img id="dnlike_{{ job.id }}" class="likeimg" src="/static/media/dnlike.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="desc pl-4 pr-4">
+                    {{ job.decs }}
+                </span>
+            </div>
+            <div id="mapAndAdd" class="row m-auto pl-4 pr-4 mt-3 w-100">
+                <div class="col-md-7 enConLeft">
+                    <div id="map{{ job.id }}" class="mapEnity"></div>
+                </div>
+                <div class="col-md-5 enConRight">
+                    <h5 class="text-center">Additional info:</h5>
+                    <ul>
+                        <li>
+                            employment type: {{ job.emp_t }}
+                        </li>
+                        <li>
+                            education required: {{ job.edu_r }}
+                        </li>
+                        <li>
+                            distance: {{ "%.0f" % job.distance }}km
+                        </li>
+                    </ul>
+                    <h5 class="text-center">Contact:</h5>
+                    <ul>
+                        <li>
+                            email: {{ "".join(contact.lower().split()) }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3 expandEnity">
+            <img id="expandEnityIco{{ job.id }}" class="expandEnityIco" src="/static/media/ddownarrow.png">
+        </div>
+    </div>
+</div>
+<script>
+    $('#{{ job.id }}').click(function(e) {
+        if ($('#jobContent{{ job.id }}').css('display') == 'none' ){
+            $('.jobContent').slideUp();
+            $('#jobContent{{ job.id }}').slideDown();
+            $('.expandEnityIco').css({
+                transform: "initial"
+            });
+            $('#expandEnityIco{{ job.id }}').css({
+                transform: "rotate(180deg)"
+            });
+            setTimeout(function(){ map{{ job.id }}.invalidateSize()}, 800);
+        }
+    });
+    $('#expandEnityIco{{ job.id }}').click(function(e) {
+        $('#jobContent{{ job.id }}').slideUp();
+        $('#expandEnityIco{{ job.id }}').css({
+            transform: "initial"
+        });
+    })
+    rat_colOp = parseFloat(
+        $('#matchJob{{ job.id }}').text().split(" %")[0]
+    )/200;
+    $('#matchJob{{ job.id }}').css({
+        background: "rgba(85,0,170," + rat_colOp + ")"
+    })
+    coords = [
+        [{{ job.elat }}, {{ job.elon }}],
+        [{{ job.jlat }}, {{ job.jlon }}]
+    ]
+    var distance = parseFloat("{{ job.distance }}");
+    var map{{ job.id }} = L.map('map{{ job.id }}').setView([
+        (coords[0][0]+coords[1][0])/2,
+        (coords[0][1]+coords[1][1])/2
+    ], 8-(distance/500));
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map{{ job.id }});
+    L.marker(coords[0]).addTo(map{{ job.id }})
+        .bindPopup('Your position.')
+    L.marker(coords[1]).addTo(map{{ job.id }})
+        .bindPopup('Job position.')
+
+    var rv = parseInt("{{ job.rat_val }}")
+    if (rv > 0) {
+        var el_id = rv == 1 ? "like_{{ job.id }}" : "dnlike_{{ job.id }}"
+        if (rv == 1) {
+            $('#like_{{ job.id }}').parent( ".ldl" ).addClass('ratactive')
+            $('#dnlike_{{ job.id }}').parent( ".ldl" ).removeClass('ratactive')
+        }
+        else {
+            $('#like_{{ job.id }}').parent( ".ldl" ).removeClass('ratactive')
+            $('#dnlike_{{ job.id }}').parent( ".ldl" ).addClass('ratactive')
+        }
+    }
+</script>
